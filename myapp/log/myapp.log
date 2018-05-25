@@ -1,0 +1,8 @@
+ERROR 2018/05/18 01:55:04    app    gorm.go:30: * LOG DEPRECATED * Cound not find parameter: db.host section=deprecated 
+ERROR 2018/05/18 01:55:16    app    gorm.go:30: * LOG DEPRECATED * Cound not find parameter: db.host section=deprecated 
+ERROR 2018/05/18 01:55:37    app    gorm.go:30: * LOG DEPRECATED * Cound not find parameter: db.host section=deprecated 
+ERROR 2018/05/18 01:59:17    app    gorm.go:30: * LOG DEPRECATED * Cound not find parameter: db.host section=deprecated 
+ERROR 2018/05/18 02:00:06    app    gorm.go:30: * LOG DEPRECATED * Cound not find parameter: db.host section=deprecated 
+ERROR 2018/05/18 02:00:39    app    gorm.go:30: * LOG DEPRECATED * Cound not find parameter: db.host section=deprecated 
+ERROR 2018/05/18 02:03:45    app    gorm.go:30: * LOG DEPRECATED * Cound not find parameter: db.host section=deprecated 
+ERROR 2018/05/18 02:06:04    app    gorm.go:30: * LOG DEPRECATED * Cound not find parameter: db.host section=deprecated 
