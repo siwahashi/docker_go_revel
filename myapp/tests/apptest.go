@@ -23,7 +23,7 @@ func (t *AppTest) TestThatUsersPageWorks() {
 }
 
 func (t *AppTest) TestThatTestPageWorks() {
-	t.Get("/test")
+	t.Get("/users")
 	t.AssertOk()
 	t.AssertContentType("text/html; charset=utf-8")
 }
