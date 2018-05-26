@@ -1,0 +1,33 @@
+version: 2
+jobs:
+    build:
+        # circleci専用の仮想マシン（VM）を利用してジョブを実行する
+        machine: true
+        steps:
+            # 対象のリポジトリをVM上にチェックアウトする
+            - checkout
+            - run: 
+                # dockerizeというコンテナの起動を待つためのライブラリをダウンロードする
+                name: install dockerize
+                command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+                environment: 
+                    DOCKERIZE_VERSION: v0.3.0
+            - run:
+                # docker-compose.ymlの記述にしたがってサービスをビルド（docker imageを構築）する
+                name: docker-compose build
+                command: docker-compose build
+            - run: 
+                # imageからコンテナを作成して起動する。オプションで-dをつけることでバックグラウンドで実行する
+                name: docker-compose up
+                command: docker-compose up -d
+            - run:
+                 # dbコンテナの起動を待つ。dbコンテナが属するネットワーク（今回はproject_default）を指定して、dockerizeコマンドを実行する
+                 # 最大3分、5秒おきに起動確認を行う
+                name: Wait for db
+                command: |
+                    docker run --network project_default \
+                    jwilder/dockerize -wait tcp://db:3306 -timeout 3m -wait-retry-interval 5s
+            - run:
+                # 起動ができたら、webコンテナに対して、 `revel test myapp` コマンドを実行する
+                name: run test
+                command: docker-compose exec web revel test myapp
